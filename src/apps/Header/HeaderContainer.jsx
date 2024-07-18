@@ -12,8 +12,6 @@ import { FILE_BASE_URL } from '@/config/serverApiConfig';
 
 import useLanguage from '@/locale/useLanguage';
 
-import UpgradeButton from './UpgradeButton';
-
 import { selectLangDirection } from '@/redux/translate/selectors';
 
 export default function HeaderContent() {
@@ -125,8 +123,6 @@ export default function HeaderContent() {
       </Dropdown>
 
       {/* <AppsButton /> */}
-
-      <UpgradeButton />
     </Header>
   );
 }
