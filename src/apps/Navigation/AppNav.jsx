@@ -89,9 +89,9 @@ const AppNav = ({ translate }) => [
     icon: <SettingOutlined />,
     children: [
       {
-        key: 'admin',
+        key: 'artist',
         // icon: <TeamOutlined />,
-        label: <Link to={'/admin'}>{translate('Staff')}</Link>,
+        label: <Link to={'/artist'}>{translate('Staff')}</Link>,
       },
       {
         key: 'generalSettings',

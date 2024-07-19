@@ -16,7 +16,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-export default function AdminForm({ isUpdateForm = false, isForAdminOwner = false }) {
+export default function ArtistForm({ isUpdateForm = false, isForArtistOwner = false }) {
   const translate = useLanguage();
   return (
     <>
@@ -81,22 +81,22 @@ export default function AdminForm({ isUpdateForm = false, isForAdminOwner = fals
         ]}
       >
         <Select>
-          <Select.Option value="owner" disabled={!isForAdminOwner}>
+          <Select.Option value="owner" disabled={!isForArtistOwner}>
             {translate('Account owner')}
           </Select.Option>
-          <Select.Option value="admin" disabled={isForAdminOwner}>
-            {translate('super_admin')}
+          <Select.Option value="artist" disabled={isForArtistOwner}>
+            {translate('super_artist')}
           </Select.Option>
-          <Select.Option value="manager" disabled={isForAdminOwner}>
+          <Select.Option value="manager" disabled={isForArtistOwner}>
             {translate('manager')}
           </Select.Option>
-          <Select.Option value="employee" disabled={isForAdminOwner}>
+          <Select.Option value="employee" disabled={isForArtistOwner}>
             {translate('employee')}
           </Select.Option>
-          <Select.Option value="create_only" disabled={isForAdminOwner}>
+          <Select.Option value="create_only" disabled={isForArtistOwner}>
             {translate('create_only')}
           </Select.Option>
-          <Select.Option value="read_only" disabled={isForAdminOwner}>
+          <Select.Option value="read_only" disabled={isForArtistOwner}>
             {translate('read_only')}
           </Select.Option>
         </Select>

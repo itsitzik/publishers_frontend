@@ -16,7 +16,7 @@ const beforeUpload = (file) => {
   return false;
 };
 
-export default function AdminForm({ isUpdateForm = false }) {
+export default function ArtistForm({ isUpdateForm = false }) {
   const translate = useLanguage();
   return (
     <>

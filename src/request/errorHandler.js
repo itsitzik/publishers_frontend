@@ -34,7 +34,7 @@ const errorHandler = (error) => {
     return {
       success: false,
       result: null,
-      message: 'Cannot connect to the server, Contact your Account administrator',
+      message: 'Cannot connect to the server, Contact your Account artististrator',
     };
   }
 
@@ -78,7 +78,7 @@ const errorHandler = (error) => {
       return {
         success: false,
         result: null,
-        message: 'Cannot connect to the server, Contact your Account administrator',
+        message: 'Cannot connect to the server, Contact your Account artististrator',
       };
     } else {
       // Code to execute when there is no internet connection

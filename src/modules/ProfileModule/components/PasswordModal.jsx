@@ -18,7 +18,7 @@ const PasswordModal = () => {
   const { onFetch } = useOnFetch();
 
   const handelSubmit = (fieldsValue) => {
-    const entity = 'admin/profile/password/';
+    const entity = 'artist/profile/password/';
     const updateFn = async () => {
       return await request.patch({ entity, jsonData: fieldsValue });
     };

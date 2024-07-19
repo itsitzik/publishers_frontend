@@ -78,7 +78,7 @@ export function toFormData(form) {
 }
 
 /*
- Format Date to display admin
+ Format Date to display artist
 */
 export function formatDate(param) {
   const date = new Date(param);
@@ -98,7 +98,7 @@ export const isDate = function ({ date, format = 'YYYY-MM-DD' }) {
   return false;
 };
 /*
- Format Datetime to display admin
+ Format Datetime to display artist
 */
 export function formatDatetime(param) {
   let time = new Date(param).toLocaleTimeString();

@@ -8,18 +8,18 @@ import { useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 
-import { selectCurrentAdmin } from '@/redux/auth/selectors';
+import { selectCurrentArtist } from '@/redux/auth/selectors';
 
 import useLanguage from '@/locale/useLanguage';
 import { FILE_BASE_URL } from '@/config/serverApiConfig';
 
-const AdminInfo = ({ config }) => {
+const ArtistInfo = ({ config }) => {
   const translate = useLanguage();
   const navigate = useNavigate();
   const { profileContextAction } = useProfileContext();
   const { modal, updatePanel } = profileContextAction;
   const { ENTITY_NAME } = config;
-  const currentAdmin = useSelector(selectCurrentAdmin);
+  const currentArtist = useSelector(selectCurrentArtist);
 
   return (
     <>
@@ -56,29 +56,29 @@ const AdminInfo = ({ config }) => {
         <Col xs={{ span: 24 }} sm={{ span: 7 }} md={{ span: 5 }}>
           <Avatar
             className="last left"
-            src={currentAdmin?.photo ? FILE_BASE_URL + currentAdmin?.photo : undefined}
+            src={currentArtist?.photo ? FILE_BASE_URL + currentArtist?.photo : undefined}
             size={96}
             style={{
               color: '#f56a00',
-              backgroundColor: currentAdmin?.photo ? 'none' : '#fde3cf',
+              backgroundColor: currentArtist?.photo ? 'none' : '#fde3cf',
               boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 15px 3px',
               fontSize: '48px',
             }}
-            alt={`${currentAdmin?.name}`}
+            alt={`${currentArtist?.name}`}
           >
-            {currentAdmin?.name.charAt(0).toUpperCase()}
+            {currentArtist?.name.charAt(0).toUpperCase()}
           </Avatar>
         </Col>
         <Col xs={{ span: 24 }} sm={{ span: 18 }}>
           <Descriptions column={1} size="middle">
             <Descriptions.Item label={translate('first name')}>
-              {currentAdmin?.name}
+              {currentArtist?.name}
             </Descriptions.Item>
             <Descriptions.Item label={translate('last name')}>
-              {currentAdmin?.surname}
+              {currentArtist?.surname}
             </Descriptions.Item>
-            <Descriptions.Item label={translate('email')}>{currentAdmin?.email}</Descriptions.Item>
-            <Descriptions.Item label={translate('role')}>{currentAdmin?.role}</Descriptions.Item>
+            <Descriptions.Item label={translate('email')}>{currentArtist?.email}</Descriptions.Item>
+            <Descriptions.Item label={translate('role')}>{currentArtist?.role}</Descriptions.Item>
           </Descriptions>
         </Col>
       </Row>
@@ -94,4 +94,4 @@ const AdminInfo = ({ config }) => {
     </>
   );
 };
-export default AdminInfo;
+export default ArtistInfo;

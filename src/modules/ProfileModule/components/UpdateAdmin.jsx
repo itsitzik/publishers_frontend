@@ -5,15 +5,15 @@ import { Button, Col, Form, Row } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ProfileAdminForm from './ProfileAdminForm';
+import ProfileArtistForm from './ProfileArtistForm';
 
 import { updateProfile } from '@/redux/auth/actions';
 
-import { selectCurrentAdmin } from '@/redux/auth/selectors';
+import { selectCurrentArtist } from '@/redux/auth/selectors';
 
 import useLanguage from '@/locale/useLanguage';
 
-const UpdateAdmin = ({ config }) => {
+const UpdateArtist = ({ config }) => {
   const translate = useLanguage();
 
   const { profileContextAction } = useProfileContext();
@@ -21,12 +21,12 @@ const UpdateAdmin = ({ config }) => {
   const dispatch = useDispatch();
   const { ENTITY_NAME } = config;
 
-  const currentAdmin = useSelector(selectCurrentAdmin);
+  const currentArtist = useSelector(selectCurrentArtist);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue(currentAdmin);
-  }, [currentAdmin]);
+    form.setFieldsValue(currentArtist);
+  }, [currentArtist]);
 
   const handleSubmit = () => {
     form.submit();
@@ -37,7 +37,7 @@ const UpdateAdmin = ({ config }) => {
       fieldsValue.file = fieldsValue.file[0].originFileObj;
     }
 
-    dispatch(updateProfile({ entity: 'admin/profile', jsonData: fieldsValue }));
+    dispatch(updateProfile({ entity: 'artist/profile', jsonData: fieldsValue }));
   };
 
   return (
@@ -81,7 +81,7 @@ const UpdateAdmin = ({ config }) => {
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 10 }}
           >
-            <ProfileAdminForm isUpdateForm={true} />
+            <ProfileArtistForm isUpdateForm={true} />
           </Form>
         </Col>
       </Row>
@@ -89,4 +89,4 @@ const UpdateAdmin = ({ config }) => {
   );
 };
 
-export default UpdateAdmin;
+export default UpdateArtist;

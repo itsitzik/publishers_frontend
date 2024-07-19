@@ -1,6 +1,6 @@
 import { useProfileContext } from '@/context/profileContext';
-import AdminInfo from './AdminInfo';
-import UpdateAdmin from './UpdateAdmin';
+import ArtistInfo from './ArtistInfo';
+import UpdateArtist from './UpdateArtist';
 import PasswordModal from './PasswordModal';
 
 const Visibility = ({ isOpen, children }) => {
@@ -15,10 +15,10 @@ export default function Profile({ config }) {
   return (
     <div>
       <Visibility isOpen={read.isOpen}>
-        <AdminInfo config={config} />
+        <ArtistInfo config={config} />
       </Visibility>
       <Visibility isOpen={update.isOpen}>
-        <UpdateAdmin config={config} />
+        <UpdateArtist config={config} />
       </Visibility>
       <PasswordModal />
     </div>

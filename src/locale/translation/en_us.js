@@ -220,7 +220,7 @@ const lang = {
   expense: 'Expense',
   expenses_category: 'Expenses Category',
   settings: 'Settings',
-  admin: 'Admin',
+  artist: 'Artist',
   currency: 'Currency',
   payment_mode: 'Payment Mode',
   taxes: 'Taxes',
@@ -406,10 +406,10 @@ const lang = {
   expense_category: 'Expense Category',
   expense_category_list: 'Expense Category List',
   add_new_expense_category: 'Add New Expense Category',
-  admin_list: 'Admin List',
-  add_new_admin: 'Add New Admin',
-  admin_super_admin: 'Admin Super Admin',
-  staff_admin_crud: 'Staff Admin Crud',
+  artist_list: 'Artist List',
+  add_new_artist: 'Add New Artist',
+  artist_super_artist: 'Artist Super Artist',
+  staff_artist_crud: 'Staff Artist Crud',
   staff_cru: 'Staff Cru',
   create_and_read_only: 'Create And Read Only',
   read_only: 'Read Only',
@@ -449,7 +449,7 @@ const lang = {
   enter_code: 'Enter Code',
   offers: 'Offers',
   proforma_invoices: 'Proforma Invoices',
-  search:"search"
+  search: 'search',
 };
 
 export default lang;

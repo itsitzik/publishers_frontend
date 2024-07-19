@@ -6,7 +6,7 @@ import { Avatar, Dropdown, Layout } from 'antd';
 
 import { LogoutOutlined, ToolOutlined, UserOutlined } from '@ant-design/icons';
 
-import { selectCurrentAdmin } from '@/redux/auth/selectors';
+import { selectCurrentArtist } from '@/redux/auth/selectors';
 
 import { FILE_BASE_URL } from '@/config/serverApiConfig';
 
@@ -15,7 +15,7 @@ import useLanguage from '@/locale/useLanguage';
 import { selectLangDirection } from '@/redux/translate/selectors';
 
 export default function HeaderContent() {
-  const currentAdmin = useSelector(selectCurrentAdmin);
+  const currentArtist = useSelector(selectCurrentArtist);
   const { Header } = Layout;
 
   const translate = useLanguage();
@@ -27,20 +27,20 @@ export default function HeaderContent() {
         <Avatar
           size="large"
           className="last"
-          src={currentAdmin?.photo ? FILE_BASE_URL + currentAdmin?.photo : undefined}
+          src={currentArtist?.photo ? FILE_BASE_URL + currentArtist?.photo : undefined}
           style={{
             color: '#f56a00',
-            backgroundColor: currentAdmin?.photo ? 'none' : '#fde3cf',
+            backgroundColor: currentArtist?.photo ? 'none' : '#fde3cf',
             boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 6px 1px',
           }}
         >
-          {currentAdmin?.name?.charAt(0)?.toUpperCase()}
+          {currentArtist?.name?.charAt(0)?.toUpperCase()}
         </Avatar>
         <div className="profileDropdownInfo">
           <p>
-            {currentAdmin?.name} {currentAdmin?.surname}
+            {currentArtist?.name} {currentArtist?.surname}
           </p>
-          <p>{currentAdmin?.email}</p>
+          <p>{currentArtist?.email}</p>
         </div>
       </div>
     );
@@ -107,17 +107,17 @@ export default function HeaderContent() {
         {/* <Badge dot> */}
         <Avatar
           className="last"
-          src={currentAdmin?.photo ? FILE_BASE_URL + currentAdmin?.photo : undefined}
+          src={currentArtist?.photo ? FILE_BASE_URL + currentArtist?.photo : undefined}
           style={{
             color: '#f56a00',
-            backgroundColor: currentAdmin?.photo ? 'none' : '#fde3cf',
+            backgroundColor: currentArtist?.photo ? 'none' : '#fde3cf',
             boxShadow: 'rgba(150, 190, 238, 0.35) 0px 0px 10px 2px',
             float: 'right',
             cursor: 'pointer',
           }}
           size="large"
         >
-          {currentAdmin?.name?.charAt(0)?.toUpperCase()}
+          {currentArtist?.name?.charAt(0)?.toUpperCase()}
         </Avatar>
         {/* </Badge> */}
       </Dropdown>
@@ -126,7 +126,3 @@ export default function HeaderContent() {
     </Header>
   );
 }
-
-//  console.log(
-//    '🚀 Welcome to IDURAR ERP CRM! Did you know that we also offer commercial customization services? Contact us at hello@idurarapp.com for more information.'
-//  );
