@@ -5,18 +5,18 @@ import { Layout, Col, Divider, Typography } from 'antd';
 import AuthLayout from '@/layout/AuthLayout';
 import SideContent from './SideContent';
 
-import logo from '@/style/images/idurar-crm-erp.svg';
+import logo from '@/style/images/seven-harmonies-logo.png';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
-const AuthModule = ({ authContent, AUTH_TITLE, isForRegistre = false }) => {
+const AuthModule = ({ authContent, AUTH_TITLE, isForRegister = false }) => {
   const translate = useLanguage();
   return (
-    <AuthLayout sideContent={<SideContent />}>
+    <AuthLayout sideContent={<SideContent isForRegister={isForRegister} />}>
       <Content
         style={{
-          padding: isForRegistre ? '40px 30px 30px' : '100px 30px 30px',
+          padding: isForRegister ? '40px 30px 30px' : '100px 30px 30px',
           maxWidth: '440px',
           margin: '0 auto',
         }}
@@ -29,7 +29,6 @@ const AuthModule = ({ authContent, AUTH_TITLE, isForRegistre = false }) => {
               margin: '0px auto 20px',
               display: 'block',
             }}
-            height={63}
             width={220}
           />
           <div className="space10" />

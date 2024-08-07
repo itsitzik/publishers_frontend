@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from '@/pages/Login';
+import Register from '@/pages/Register';
 import NotFound from '@/pages/NotFound';
 
 import ForgetPassword from '@/pages/ForgetPassword';
@@ -13,12 +14,13 @@ export default function AuthRouter() {
 
   return (
     <Routes>
-      <Route element={<Login />} path="/" />
-      <Route element={<Login />} path="/login" />
-      <Route element={<Navigate to="/login" replace />} path="/logout" />
-      <Route element={<ForgetPassword />} path="/forgetpassword" />
-      <Route element={<ResetPassword />} path="/resetpassword/:userId/:resetToken" />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/logout" element={<Navigate to="/login" replace />} />
+      <Route path="/forgetpassword" element={<ForgetPassword />} />
+      <Route path="/resetpassword/:userId/:resetToken" element={<ResetPassword />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }

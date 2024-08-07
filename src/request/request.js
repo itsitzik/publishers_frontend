@@ -126,6 +126,44 @@ const request = {
       return errorHandler(error);
     }
   },
+  searchSpotifyArtist: async ({ options = {} }) => {
+    try {
+      const response = await axios({
+        url: 'spotify/searchArtist',
+        method: 'GET',
+        params: {
+          q: options.q,
+        },
+      });
+
+      successHandler(response, {
+        notifyOnSuccess: false,
+        notifyOnFailed: false,
+      });
+      return response.data;
+    } catch (error) {
+      return errorHandler(error);
+    }
+  },
+  spotifyArtistSongs: async ({ artistId }) => {
+    try {
+      const response = await axios({
+        url: 'spotify/artistTracks',
+        method: 'GET',
+        params: {
+          artistId: artistId,
+        },
+      });
+
+      successHandler(response, {
+        notifyOnSuccess: false,
+        notifyOnFailed: false,
+      });
+      return response.data;
+    } catch (error) {
+      return errorHandler(error);
+    }
+  },
 
   list: async ({ entity, options = {} }) => {
     try {

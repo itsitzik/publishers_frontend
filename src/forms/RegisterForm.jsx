@@ -11,15 +11,15 @@ export default function RegisterForm({ userLocation }) {
   return (
     <>
       <Form.Item
-        name="name"
-        label={translate('name')}
+        name="stageName"
+        label={translate('Stage Name')}
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} size="large" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} />
       </Form.Item>
       <Form.Item
         name="email"
@@ -33,11 +33,7 @@ export default function RegisterForm({ userLocation }) {
           },
         ]}
       >
-        <Input
-          prefix={<MailOutlined className="site-form-item-icon" />}
-          type="email"
-          size="large"
-        />
+        <Input prefix={<MailOutlined className="site-form-item-icon" />} type="email" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -48,7 +44,10 @@ export default function RegisterForm({ userLocation }) {
           },
         ]}
       >
-        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} size="large" />
+        <Input.Password
+          autoComplete="new-password"
+          prefix={<LockOutlined className="site-form-item-icon" />}
+        />
       </Form.Item>
       {/* <Form.Item
         name="confirm_password"
@@ -93,7 +92,6 @@ export default function RegisterForm({ userLocation }) {
           style={{
             width: '100%',
           }}
-          size="large"
         >
           {countryList.map((language) => (
             <Select.Option

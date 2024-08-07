@@ -20,7 +20,7 @@ export const fields = {
     options: [
       { value: 'draft', label: 'draft' },
       { value: 'new', label: 'new', color: 'blue' },
-      { value: 'in negociation', label: 'in negociation', color: 'purple' },
+      { value: 'in negotiation', label: 'in negotiation', color: 'purple' },
       { value: 'won', label: 'won', color: 'green' },
       { value: 'loose', label: 'loose', color: 'red' },
       { value: 'canceled', label: 'canceled', color: selectColor.crimson },

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
-import { selectAuth } from '@/redux/auth/selectors';
+import { selectAuth, selectCurrentArtist } from '@/redux/auth/selectors';
 import { AppContextProvider } from '@/context/appContext';
 import PageLoader from '@/components/PageLoader';
 import AuthRouter from '@/router/AuthRouter';
@@ -9,19 +9,19 @@ import Localization from '@/locale/Localization';
 import { notification } from 'antd';
 
 const ErpApp = lazy(() => import('./ErpApp'));
+const BoardingApp = lazy(() => import('./BoardingApp'));
 
-const DefaultApp = () => (
+const DefaultApp = ({ children }) => (
   <Localization>
     <AppContextProvider>
-      <Suspense fallback={<PageLoader />}>
-        <ErpApp />
-      </Suspense>
+      <Suspense fallback={<PageLoader />}>{children}</Suspense>
     </AppContextProvider>
   </Localization>
 );
 
 export default function PublishingOs() {
   const { isLoggedIn } = useSelector(selectAuth);
+  const currentArtist = useSelector(selectCurrentArtist);
 
   // // Online state
   // const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -56,7 +56,6 @@ export default function PublishingOs() {
   //     window.removeEventListener('offline', handleStatusChange);
   //   };
   // }, [navigator.onLine]);
-
   if (!isLoggedIn)
     return (
       <Localization>
@@ -64,6 +63,18 @@ export default function PublishingOs() {
       </Localization>
     );
   else {
-    return <DefaultApp />;
+    if (!currentArtist.boarded) {
+      return (
+        <DefaultApp>
+          <BoardingApp />
+        </DefaultApp>
+      );
+    } else {
+      return (
+        <DefaultApp>
+          <ErpApp />
+        </DefaultApp>
+      );
+    }
   }
 }

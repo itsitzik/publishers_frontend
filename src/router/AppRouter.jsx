@@ -2,14 +2,18 @@ import { lazy, useEffect } from 'react';
 
 import {} from 'react-router-dom';
 import {} from 'react-router-dom';
-import { Navigate, useLocation, useRoutes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentArtist } from '@/redux/auth/selectors';
+import { useNavigate, useLocation, useRoutes } from 'react-router-dom';
 import { useAppContext } from '@/context/appContext';
 
 import routes from './routes';
 
 export default function AppRouter() {
   let location = useLocation();
+  const navigate = useNavigate();
   const { state: stateApp, appContextAction } = useAppContext();
+  const currentArtist = useSelector(selectCurrentArtist);
   const { app } = appContextAction;
 
   const routesList = [];
@@ -30,6 +34,11 @@ export default function AppRouter() {
     return 'default';
   }
   useEffect(() => {
+    let boarded = currentArtist.boarded;
+    // console.log(currentArtist);
+    if (!boarded && !location.pathname.includes('boarding')) {
+      navigate('/boarding');
+    }
     if (location.pathname === '/') {
       app.default();
     } else {
