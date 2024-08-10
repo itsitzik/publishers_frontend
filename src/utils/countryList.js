@@ -853,11 +853,6 @@ export const countryList = [
     timeZone: ['Asia/Karachi'],
   },
   {
-    icon: '🇵🇸',
-    value: 'PS',
-    label: 'Palestine',
-  },
-  {
     icon: '🇵🇦',
     value: 'PA',
     label: 'Panama',
