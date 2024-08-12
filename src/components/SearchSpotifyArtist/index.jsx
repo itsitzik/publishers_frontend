@@ -120,9 +120,10 @@ export default function searchSpotifyArtist({
       value={currentValue}
       onSearch={onSearch}
       onClear={() => {
-        // setOptions([]);
-        // setCurrentValue(undefined);
+        setOptions([]);
+        setCurrentValue(undefined);
         setSearching(false);
+        onChange(null);
       }}
       onChange={handleSelectChange}
       style={{ minWidth: '220px' }}

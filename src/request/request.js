@@ -164,6 +164,23 @@ const request = {
       return errorHandler(error);
     }
   },
+  saveBoardingData: async (boardingData) => {
+    try {
+      const response = await axios({
+        url: 'artist/boarding/update',
+        method: 'PATCH',
+        data: boardingData,
+      });
+
+      successHandler(response, {
+        notifyOnSuccess: false,
+        notifyOnFailed: true,
+      });
+      return response.data;
+    } catch (error) {
+      return errorHandler(error);
+    }
+  },
 
   list: async ({ entity, options = {} }) => {
     try {

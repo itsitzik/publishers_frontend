@@ -2,6 +2,7 @@ import '@/style/partials/boarding.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { request } from '@/request';
 import { AntDesignOutlined } from '@ant-design/icons';
 import {
   Typography,
@@ -18,6 +19,7 @@ import {
   Divider,
   Alert,
   Space,
+  Result,
 } from 'antd';
 import SearchSpotifyArtist from '@/components/SearchSpotifyArtist';
 import { countryList } from '@/utils/countryList';
@@ -51,7 +53,7 @@ const Boarding = () => {
     setStep(0);
   };
   const goStep1 = () => {
-    spotifyForm.setFieldsValue(step1Data);
+    // spotifyForm.setFieldsValue(step1Data);
     setStep(1);
   };
   const goStep2 = () => {
@@ -66,8 +68,25 @@ const Boarding = () => {
         });
     }
   };
-  const goStep3 = () => {
-    setStep(3);
+  const goStep3 = async () => {
+    try {
+      let isValid = await proForm.validateFields();
+      if (isValid) {
+        let res = await request.saveBoardingData({
+          spotifyArtistId: spotifyForm.getFieldValue('spotifyArtistId'),
+          country: proForm.getFieldValue('country'),
+          hasPro: proForm.getFieldValue('hasPro'),
+          ipiNumber: proForm.getFieldValue('ipiNumber'),
+        });
+
+        if (res.success && res.success === true) {
+          setStep(3);
+        } else {
+        }
+      }
+    } catch {
+      return;
+    }
   };
 
   useEffect(() => {
@@ -79,6 +98,7 @@ const Boarding = () => {
   }, [step]);
 
   const handleSpotifyFormChange = (data) => {};
+
   const handleProFormChange = (data) => {
     if (typeof data.hasPro != 'undefined') {
       setProMissingMessage(data.hasPro === 'no');
@@ -110,162 +130,173 @@ const Boarding = () => {
               {
                 title: 'Finish',
                 description: ' ',
+                status: step == 3 ? 'finish' : 'wait',
               },
             ]}
           />
         </Col>
         <Col span={8}>
-          {(() => {
-            switch (step) {
-              case 0:
-                return (
-                  <>
-                    <div style={{ textAlign: 'center' }}>
-                      <Title>We Are ThePublishers</Title>
-                      <Title level={2}>We help you find your lost royalties!</Title>
-                      <Button onClick={goStep1} type="primary" size="large">
-                        Lets Go
-                      </Button>
-                    </div>
-                  </>
-                );
-              case 1:
-                return (
-                  <>
-                    <Form
-                      autoComplete="off"
-                      key={'form_spotify'}
-                      // initialValues={{ ...step1Data }}
-                      form={spotifyForm}
-                      layout={'vertical'}
-                      style={{ width: '100%' }}
-                      onValuesChange={handleSpotifyFormChange}
+          <section style={{ display: step == 0 ? '' : 'none' }}>
+            <div style={{ textAlign: 'center' }}>
+              <Title>We Are ThePublishers</Title>
+              <Title level={2}>We help you find your lost royalties!</Title>
+              <Button onClick={goStep1} type="primary" size="large">
+                Lets Go
+              </Button>
+            </div>
+          </section>
+          <section style={{ display: step == 1 ? '' : 'none' }}>
+            <Form
+              autoComplete="off"
+              key={'form_spotify'}
+              initialValues={{ ...step1Data }}
+              form={spotifyForm}
+              layout={'vertical'}
+              style={{ width: '100%' }}
+              onValuesChange={handleSpotifyFormChange}
+            >
+              <Form.Item
+                label="Enter your Spotify artist page"
+                name="spotifyArtistId"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <SearchSpotifyArtist displayLabels={['name']} searchFields={'name'} />
+              </Form.Item>
+              <Divider />
+              <Flex gap="small" wrap>
+                <Button onClick={goStep0} type="text" size="large">
+                  previous
+                </Button>
+                <Button onClick={goStep2} type="primary" size="large">
+                  Next
+                </Button>
+              </Flex>
+            </Form>
+          </section>
+          <section style={{ display: step == 2 ? '' : 'none' }}>
+            <Form
+              autoComplete="off"
+              key={'form_pro'}
+              initialValues={{ ...step2Data }}
+              form={proForm}
+              layout={'vertical'}
+              style={{ width: '100%' }}
+              onValuesChange={handleProFormChange}
+            >
+              <Form.Item
+                label="Country"
+                name="country"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Select
+                  showSearch
+                  defaultOpen={false}
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                  }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .startsWith((optionB?.label ?? '').toLowerCase())
+                  }
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  {countryList.map((language) => (
+                    <Select.Option
+                      key={language.value}
+                      value={language.value}
+                      label={language.label}
                     >
-                      <Form.Item
-                        label="Enter your Spotify artist page"
-                        name="spotifyArtistId"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <SearchSpotifyArtist displayLabels={['name']} searchFields={'name'} />
-                      </Form.Item>
-                      <Divider />
-                      <Flex gap="small" wrap>
-                        <Button onClick={goStep0} type="text" size="large">
-                          previous
-                        </Button>
-                        <Button
-                          // disabled={!sptifyFormSubmittable}
-                          onClick={goStep2}
-                          type="primary"
-                          size="large"
-                        >
-                          Next
-                        </Button>
-                      </Flex>
-                    </Form>
-                  </>
-                );
-              case 2:
-                return (
-                  <>
-                    <Form
-                      autoComplete="off"
-                      key={'form_pro'}
-                      initialValues={{ ...step2Data }}
-                      form={proForm}
-                      layout={'vertical'}
-                      style={{ width: '100%' }}
-                      onValuesChange={handleProFormChange}
-                    >
-                      <Form.Item
-                        label="Country"
-                        name="country"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <Select
-                          showSearch
-                          defaultOpen={false}
-                          optionFilterProp="children"
-                          filterOption={(input, option) =>
-                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                          }
-                          filterSort={(optionA, optionB) =>
-                            (optionA?.label ?? '')
-                              .toLowerCase()
-                              .startsWith((optionB?.label ?? '').toLowerCase())
-                          }
-                          style={{
-                            width: '100%',
-                          }}
-                        >
-                          {countryList.map((language) => (
-                            <Select.Option
-                              key={language.value}
-                              value={language.value}
-                              label={language.label}
-                            >
-                              {language?.icon && language?.icon + ' '}
-                              {language.label}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                      <Form.Item label="Did you register in you local PRO?">
-                        <Space direction="vertical">
-                          <Form.Item
-                            name="hasPro"
-                            noStyle
-                            rules={[
-                              {
-                                required: true,
-                              },
-                            ]}
-                          >
-                            <Radio.Group buttonStyle="solid">
-                              <Radio.Button value="yes">Yes</Radio.Button>
-                              <Radio.Button value="no">No</Radio.Button>
-                            </Radio.Group>
-                          </Form.Item>
-                          {proMissingMessage ? (
-                            <Alert
-                              description="A local PRO account is required to claim royalties. If you didn't created one, you can do it later."
-                              type="info"
-                              showIcon
-                            />
-                          ) : (
-                            ''
-                          )}
-                        </Space>
-                      </Form.Item>
-                      <Form.Item label="Please enter your IPI number" name="ipiNumber">
-                        <Input disabled={!canEnterIpi}></Input>
-                      </Form.Item>
-                      <Divider />
-                      <Flex gap="small" wrap>
-                        <Button onClick={goStep1} type="text" size="large">
-                          previous
-                        </Button>
-                        <Button onClick={goStep3} type="primary" size="large">
-                          Next
-                        </Button>
-                      </Flex>
-                    </Form>
-                  </>
-                );
-              case 3:
-                return '#0000FF';
-              default:
-                return <>error</>;
-            }
-          })()}
+                      {language?.icon && language?.icon + ' '}
+                      {language.label}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item label="Did you register in you local PRO?">
+                <Space direction="vertical">
+                  <Form.Item
+                    name="hasPro"
+                    noStyle
+                    rules={[
+                      {
+                        message: 'This field is required',
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Radio.Group buttonStyle="solid">
+                      <Radio.Button value="yes">Yes</Radio.Button>
+                      <Radio.Button value="no">No</Radio.Button>
+                    </Radio.Group>
+                  </Form.Item>
+                  {proMissingMessage ? (
+                    <Alert
+                      description="A local PRO account and IPI Name Number is required to claim royalties. If you didn't created one already, we will guide you in the process."
+                      type="info"
+                      showIcon
+                    />
+                  ) : (
+                    ''
+                  )}
+                </Space>
+              </Form.Item>
+              <Form.Item
+                label="What is your IPI Name Number"
+                name="ipiNumber"
+                rules={[
+                  {
+                    validator: (_, value) => {
+                      let hasPro = proForm.getFieldValue('hasPro');
+                      if (hasPro === 'no' || hasPro === null) {
+                        return Promise.resolve();
+                      } else {
+                        if (!value) {
+                          return Promise.reject('Please enter your IPI Name Number');
+                        } else {
+                          return Promise.resolve();
+                        }
+                      }
+                    },
+                  },
+                ]}
+              >
+                <Input disabled={!canEnterIpi}></Input>
+              </Form.Item>
+              <Divider />
+              <Flex gap="small" wrap>
+                <Button onClick={goStep1} type="text" size="large">
+                  previous
+                </Button>
+                <Button onClick={goStep3} type="primary" size="large">
+                  Next
+                </Button>
+              </Flex>
+            </Form>
+          </section>
+          <section style={{ display: step == 3 ? '' : 'none' }}>
+            <Result
+              status="success"
+              title="Finito!"
+              subTitle="finish sentence with a medium size description of finish and go to action button"
+              extra={[
+                <Button type="primary" key="console">
+                  Go Console
+                </Button>,
+              ]}
+            />
+          </section>
         </Col>
         <Col span={8}></Col>
       </Row>
