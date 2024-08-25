@@ -26,6 +26,25 @@ export const login = async ({ loginData }) => {
   }
 };
 
+export const getUserInfo = async () => {
+  try {
+    const response = await axios.get(API_BASE_URL + `artist/userInfo`);
+
+    const { status, data } = response;
+
+    successHandler(
+      { data, status },
+      {
+        notifyOnSuccess: false,
+        notifyOnFailed: true,
+      }
+    );
+    return data;
+  } catch (error) {
+    return errorHandler(error);
+  }
+};
+
 export const register = async ({ registerData }) => {
   try {
     const response = await axios.post(API_BASE_URL + `register`, registerData);

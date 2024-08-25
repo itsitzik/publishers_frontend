@@ -145,6 +145,26 @@ const request = {
       return errorHandler(error);
     }
   },
+  checkArtistId: async ({ action, data }) => {
+    try {
+      const response = await axios({
+        url: 'spotify/searchArtist',
+        method: 'GET',
+        params: {
+          action: action,
+          ...data,
+        },
+      });
+
+      successHandler(response, {
+        notifyOnSuccess: false,
+        notifyOnFailed: false,
+      });
+      return response.data;
+    } catch (error) {
+      return errorHandler(error);
+    }
+  },
   spotifyArtistSongs: async ({ artistId }) => {
     try {
       const response = await axios({

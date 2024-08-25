@@ -1,6 +1,6 @@
 import '@/style/partials/boarding.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { request } from '@/request';
 import { AntDesignOutlined } from '@ant-design/icons';
@@ -24,16 +24,18 @@ import {
 import SearchSpotifyArtist from '@/components/SearchSpotifyArtist';
 import { countryList } from '@/utils/countryList';
 import { selectAuth, selectCurrentArtist } from '@/redux/auth/selectors';
-import { current } from '@reduxjs/toolkit';
+import { getUserInfo } from '@/redux/auth/actions';
 
 const { Meta } = Card;
 
 const { Title } = Typography;
 
 const Boarding = () => {
+  const dispatch = useDispatch();
   const currentArtist = useSelector(selectCurrentArtist);
   const [proForm] = Form.useForm();
   const [spotifyForm] = Form.useForm();
+
   const [sptifyFormSubmittable, setSptifyFormSubmittable] = useState(false);
   const [proFormSubmittable, setProFormSubmittable] = useState(false);
   const [canEnterIpi, setCanEnterIpi] = useState(false);
@@ -80,6 +82,7 @@ const Boarding = () => {
         });
 
         if (res.success && res.success === true) {
+          dispatch(getUserInfo());
           setStep(3);
         } else {
         }
