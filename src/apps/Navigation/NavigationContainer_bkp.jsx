@@ -10,7 +10,23 @@ import logoText from '@/style/images/logo-text.svg';
 
 import useResponsive from '@/hooks/useResponsive';
 
-import { SettingOutlined, FormOutlined, DashboardOutlined, MenuOutlined } from '@ant-design/icons';
+import {
+  SettingOutlined,
+  CustomerServiceOutlined,
+  ContainerOutlined,
+  FileSyncOutlined,
+  DashboardOutlined,
+  TagOutlined,
+  TagsOutlined,
+  UserOutlined,
+  CreditCardOutlined,
+  MenuOutlined,
+  FileOutlined,
+  ShopOutlined,
+  FilterOutlined,
+  WalletOutlined,
+  ReconciliationOutlined,
+} from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { selectLangDirection } from '@/redux/translate/selectors';
 
@@ -42,14 +58,66 @@ function Sidebar({ collapsible, isMobile = false }) {
     },
     {
       key: 'customer',
-      icon: <FormOutlined />,
+      icon: <CustomerServiceOutlined />,
       label: <Link to={'/customer'}>{translate('customers')}</Link>,
     },
     {
-      key: 'new_report',
-      icon: <FormOutlined />,
-      label: <Link to={'/new-report'}>New Report</Link>,
+      key: 'people',
+      icon: <UserOutlined />,
+      label: <Link to={'/people'}>{translate('peoples')}</Link>,
     },
+    {
+      key: 'company',
+      icon: <ShopOutlined />,
+      label: <Link to={'/company'}>{translate('companies')}</Link>,
+    },
+    {
+      key: 'lead',
+      icon: <FilterOutlined />,
+      label: <Link to={'/lead'}>{translate('leads')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('offers')}</Link>,
+    },
+    {
+      key: 'invoice',
+      icon: <ContainerOutlined />,
+      label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
+    },
+    {
+      key: 'quote',
+      icon: <FileSyncOutlined />,
+      label: <Link to={'/quote'}>{translate('proforma invoices')}</Link>,
+    },
+    {
+      key: 'payment',
+      icon: <CreditCardOutlined />,
+      label: <Link to={'/payment'}>{translate('payments')}</Link>,
+    },
+
+    {
+      key: 'product',
+      icon: <TagOutlined />,
+      label: <Link to={'/product'}>{translate('products')}</Link>,
+    },
+    {
+      key: 'categoryproduct',
+      icon: <TagsOutlined />,
+      label: <Link to={'/category/product'}>{translate('products_category')}</Link>,
+    },
+    {
+      key: 'expenses',
+      icon: <WalletOutlined />,
+      label: <Link to={'/expenses'}>{translate('expenses')}</Link>,
+    },
+    {
+      key: 'expensesCategory',
+      icon: <ReconciliationOutlined />,
+      label: <Link to={'/category/expenses'}>{translate('expenses_Category')}</Link>,
+    },
+
     {
       label: translate('Settings'),
       key: 'settings',
@@ -58,6 +126,15 @@ function Sidebar({ collapsible, isMobile = false }) {
         {
           key: 'generalSettings',
           label: <Link to={'/settings'}>{translate('settings')}</Link>,
+        },
+
+        {
+          key: 'paymentMode',
+          label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
+        },
+        {
+          key: 'taxes',
+          label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
         },
         {
           key: 'about',
